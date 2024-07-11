@@ -1,0 +1,88 @@
+.stApp {
+    background: #0e1117;
+}
+
+
+div[role="tablist"] div[data-testid="stMarkdownContainer"] p {
+    font-size: 20px;
+}
+
+
+div.stTabs button {
+    background: #0e1117;
+    margin: 0 10px;
+}
+
+.st-emotion-cache-13ln4jf {
+    max-width: 65rem;
+}
+
+div[data-testid="stNumberInput"] {
+    margin-top: 5px;
+}
+
+section[data-testid="stSidebar"] {
+    background: #1f2633a9;
+}
+
+
+.stApp header {
+    background: #0e1117;
+}
+
+.stButton {
+    margin-top: 10px;
+}
+
+div[data-testid="stText"] {
+    margin-top: 15px;
+}
+
+/* ---------- Audio ---------- */
+
+/* audio {
+    max-height: 20px;
+    margin-top: 10px;
+}
+
+audio::-webkit-media-controls-panel,
+audio::-webkit-media-controls-enclosure {
+    background-color: #616161;
+} */
+
+div[data-testid="stVerticalBlock"] {
+    gap: 0px;
+}
+
+/* ---------- Main page hacks ---------- */
+
+section[tabindex="0"] {
+    /* no scroll */
+    overflow: hidden;
+    scroll-padding: 20%;
+    scroll-behavior: smooth;
+    /* scroll-margin: 60px; */
+
+}
+
+section[tabindex=0] div.stButton {
+    left: -999em;
+    position: absolute;
+    /* yeah...this is a very hacky way to send buttons probably to mars */
+}
+
+h3 {
+    color: #756760;
+    margin-bottom: 1rem;
+}
+
+
+
+div.stTabs>div>div:nth-of-type(3) {
+    overflow-x: hidden;
+    height: 80vh;
+}
+
+div.stTabs>div>div:nth-of-type(3) p {
+    padding-right: 10px;
+}

@@ -1,0 +1,67 @@
+{
+    "INTEREST" : {
+        "min": 0,
+        "max": 1,
+        "default": 0.00445,
+        "name": "Interest Monthly Rate :",
+        "help": "Flat interest to be used in simulation cost of interest"
+    },
+    "HOUSE_PRICE" : {
+        "min": 0,
+        "max": 1000000000,
+        "default": 950000,
+        "name": "House Price :",
+        "help": "The current price of the house interested on"
+    },
+    "HOUSE_PRICE_GROWTH" : {
+        "min": 0,
+        "max": 1,
+        "default": 0.002284,
+        "name": "House Price Monthly Growth:",
+        "help": "The average Monthly growth of house prices. Default for Auckland, NZ Region taken from the historical of past 10+ years:  https://www.barfoot.co.nz/market-reports/2024/may/residential-sales-report"
+    },
+    "INSTALLMENT_THRESH" : {
+        "min": 0,
+        "max": 10000000,
+        "default": 4000,
+        "name": "Installment Upper Limit on Mortgage :",
+        "help": "The upper price capable of paying should a mortgage be acquire"
+    },
+    "RENT_PRICE" : {
+        "min": 0,
+        "max": 10000,
+        "default": 1900,
+        "name": "Rent Price :",
+        "help": "The current paid rent price. This will be used as the cost to save money for a Mortgage"
+    },
+    "RENT_GROWTH" : {
+        "min": 0,
+        "max": 1,
+        "default": 0.002753,
+        "name": "Rent Prices Monthly Growth :",
+        "help": "The Monthly grow on rent prices. Default for Auckland, NZ Region taken from the historical of past 10+ years: StatsNZ "
+    },
+    "INITIAL_SAVINGS" : {
+        "min": 0,
+        "max": 100000000,
+        "default": 0,
+        "name": "Current Savings :",
+        "help": "The current savings that will be destined for the down payment of the house"
+    },
+    "SAVINGS_PER_MONTH" : {
+        "min": 0,
+        "max": 1000000000,
+        "default": 3000,
+        "name": "Monthly Savings :",
+        "help": "The amount to be save monthly for putting the initial payment of the house"
+    },
+    "SAVINGS_GROWTH" : {
+        "min": 0,
+        "max": 1,
+        "default": 0.00772,
+        "name": "Saving Monthly Growth :",
+        "help": "The interest paid over the savings. Default for the S&P500 over 5+ years"
+    }
+}
+
+ 
