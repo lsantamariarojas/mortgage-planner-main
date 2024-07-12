@@ -119,7 +119,7 @@ class financialEstimator(Simulator, financialFunctions):
         if future_saved_money > future_house_val:
             return np.inf
 
-        # print('house val: ', future_house_val, ', saved mon: ', future_saved_money, ', tot int: ', mortgage_interest, ', tot_rent: ', total_rent_paid, ', paym: ', monthly_payments)
+        print('house val: ', future_house_val, ', saved mon: ', future_saved_money, ', tot int: ', mortgage_interest, ', tot_rent: ', total_rent_paid, ', paym: ', monthly_payments)
         
         return mortgage_interest + total_rent_paid
 
@@ -220,7 +220,7 @@ class financialEstimator(Simulator, financialFunctions):
             iter_mortgage = int(row['mortgage_years'])
 
             if self.objective_function([iter_months, iter_mortgage]) != np.inf:
-                print([iter_months, iter_mortgage], self.objective_function([iter_months, iter_mortgage]))
+                # print([iter_months, iter_mortgage], self.objective_function([iter_months, iter_mortgage]))
 
                 iter_mortgage_periods = np.arange(0, iter_mortgage * 12 + 1, dtype = int)
 
@@ -276,7 +276,7 @@ class financialEstimator(Simulator, financialFunctions):
 
         def sub_opt_int_fun(x, dictio):
             try:
-                return dictio['{0}-{1}'.format(int(x['months_to_wait'] + 1), int(x['mortgage_years']))]
+                return dictio['{0}-{1}'.format(int(np.round(x['months_to_wait'] + 1)), int(np.round(x['mortgage_years'])))]
             except:
                 return [0]
 
@@ -286,7 +286,7 @@ class financialEstimator(Simulator, financialFunctions):
         cols_to_keep = [i for i in sub_optimal_df.columns if i != 'steps']
 
 
-        optimal_pd = pd.DataFrame([[opt_results_obj.x[0], opt_results_obj.x[1], opt_results_obj.fun, sum(interest_payments), payments]], columns = cols_to_keep)
+        optimal_pd = pd.DataFrame([[months, mortgage_years, opt_results_obj.fun, sum(interest_payments), payments]], columns = cols_to_keep)
 
         all_pd = pd.concat([sub_optimal_df[cols_to_keep], optimal_pd], axis = 0)
 
@@ -297,7 +297,7 @@ class financialEstimator(Simulator, financialFunctions):
         all_pd['savings_at_n'] = all_pd.apply(lambda x: saved_amounts_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
         all_pd['rent_paid_at_n'] = all_pd.apply(lambda x: rent_prices_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
 
-        all_pd[['months_to_wait', 'mortgage_years', 'cost_function', 'house_val_at_n', 'savings_at_n',
+        all_pd = all_pd.loc[all_pd['interest'] != 0, ['months_to_wait', 'mortgage_years', 'cost_function', 'house_val_at_n', 'savings_at_n',
             'rent_paid_at_n', 'interest', 'payments']]
         
 

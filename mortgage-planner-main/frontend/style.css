@@ -7,6 +7,22 @@ div[role="tablist"] div[data-testid="stMarkdownContainer"] p {
     font-size: 20px;
 }
 
+/* div:has(> div[data-testid="stText"]){
+     */
+/* } */
+
+div[data-testid="stText"]{
+    margin-top: 15px;
+    max-width: 95%;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.st-emotion-cache-183lzff {
+    white-space: pre-wrap;
+
+}
+
 
 div.stTabs button {
     background: #0e1117;
@@ -22,7 +38,7 @@ div[data-testid="stNumberInput"] {
 }
 
 section[data-testid="stSidebar"] {
-    background: #1f2633a9;
+    background: #1f2633;
 }
 
 
@@ -34,9 +50,10 @@ section[data-testid="stSidebar"] {
     margin-top: 10px;
 }
 
-div[data-testid="stText"] {
-    margin-top: 15px;
+.plot-container {
+    margin-top: 50px;
 }
+
 
 /* ---------- Audio ---------- */
 
@@ -54,22 +71,7 @@ div[data-testid="stVerticalBlock"] {
     gap: 0px;
 }
 
-/* ---------- Main page hacks ---------- */
 
-section[tabindex="0"] {
-    /* no scroll */
-    overflow: hidden;
-    scroll-padding: 20%;
-    scroll-behavior: smooth;
-    /* scroll-margin: 60px; */
-
-}
-
-section[tabindex=0] div.stButton {
-    left: -999em;
-    position: absolute;
-    /* yeah...this is a very hacky way to send buttons probably to mars */
-}
 
 h3 {
     color: #756760;
