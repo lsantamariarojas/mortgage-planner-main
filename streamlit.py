@@ -21,7 +21,7 @@ with open('./frontend/defaults.json', 'rb') as file:
 # ------------------------------------------------------------
 
 st.set_page_config(
-    page_title="Mortgage Calculatoo", page_icon="🗡️", initial_sidebar_state="collapsed"
+    page_title="Mortgage Calculator", page_icon=":moneybag:", initial_sidebar_state="collapsed"
 )
 
 @st.cache_resource
