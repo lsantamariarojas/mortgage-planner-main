@@ -24,7 +24,7 @@ st.set_page_config(
     page_title="Mortgage Calculator", page_icon=":moneybag:", initial_sidebar_state="collapsed"
 )
 
-@st.cache_resource
+# @st.cache_resource
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -62,7 +62,8 @@ with sidebar:
         
         submit = st.form_submit_button('Simulate')
 
-if not submit:
+# if not submit:
+if False:
     st.title('Welcome to the Mortgage Simulator')
     st.text('Please open the side bar and submit your values to simulate...')
 
@@ -157,7 +158,7 @@ else:
         tab1.text(f"Optimal solution: Months to save until buying: {int(opt_result[0].x[0])}, Mortgage Years: {int(opt_result[0].x[1])}")
         tab1.text(f"Optimal Total cost: Rents to save the needed money + Mortgage Interest: {opt_result[0].fun}")  
 
-        st.plotly_chart(table_plot[0], use_container_width=True) 
+        st.plotly_chart(table_plot[0], use_container_width=True, key = 'la_tablacsa') 
 
 
         st.html('''<sub>*** months_to_wait: Months until entering into mortgage, cost_function: Total costs that sums rent paid until before entering a mortgage plus the interest on the mortgage, 

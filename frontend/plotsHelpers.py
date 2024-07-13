@@ -3,6 +3,13 @@ import numpy as np
 from plotly.subplots import make_subplots
 
 
+# some brute force editing
+keys = list(locals().keys())
+for l in keys:
+    if l[:3] == 'fig':
+        locals()[l].update_layout(font_color = '#fffafa')
+
+
 class plotters:
 
     def __init__(self, X, Y, Z):
@@ -28,7 +35,13 @@ class plotters:
             yaxis=dict(title='Mortgage years'),
             xaxis=dict(title='Months to wait until buy'),
             height=400,  # Adjust height of the figure
-            width=400    # Adjust width of the figure
+            width=400,    # Adjust width of the figure
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255,255,255,100)"
+            
         )
 
         if show:
@@ -46,7 +59,7 @@ class plotters:
                             z = self.Z,
                             x = X,
                             y = Y,
-                            colorscale = 'Viridis'  
+                            colorscale = 'Viridis'
                             )])
 
         # Update layout properties
@@ -58,7 +71,13 @@ class plotters:
                 zaxis_title='Total Cost',
             ),
             width = 400,
-            height = 400
+            height = 400,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255,255,255,100)"
+            
         )
 
         if show:
@@ -128,6 +147,12 @@ class plotters:
             hoversubplots = 'axis',
             hovermode = 'x unified',
             # hoverdistance = -1,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255,255,255,100)"
+            
         )
 
         if show:
@@ -188,6 +213,12 @@ class plotters:
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
             hovermode = 'x unified',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255,255,255,100)"
+            
 
             # hoverdistance = -1,
         )
@@ -235,6 +266,12 @@ class plotters:
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
             hovermode = 'x unified',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255,255,255,100)"
+            
             # hoverdistance = -1,
         )
 
@@ -279,7 +316,16 @@ class plotters:
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
             hovermode = 'x unified',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            font_color="rgba(255, 255, 255, 100)",
+            
         )
+
+        fig.update_traces(marker_line_color='#FFFFFF', marker_line_width=1.5,
+                  opacity=1)
 
         if show:
             # Show plot
@@ -315,7 +361,13 @@ class plotters:
         fig.update_layout(
             height = 310,
             title_x=0, margin= dict(l=0,r=10,b=0,t=90),
-            title = 'Scenarios Examples'
+            title = 'Scenarios Examples',
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            font_color="rgba(255, 255, 255, 100)",
+            title_font_color="rgba(255, 255, 255, 100)",
+            legend_title_font_color="rgba(255, 255, 255, 100)",
+            
         )
         
         if show:

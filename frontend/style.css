@@ -16,12 +16,58 @@ div[data-testid="stText"]{
     max-width: 95%;
     word-wrap: break-word;
     word-break: break-word;
+    color: #fffafa;
 }
 
 .st-emotion-cache-183lzff {
     white-space: pre-wrap;
 
 }
+
+label[data-testid="stWidgetLabel"] {
+    color: #fffafa;
+}
+
+div[data-testid="stNumberInputContainer"] {
+    border-color: #fffafa;
+    background: #fffafa;
+}
+
+div[data-baseweb="base-input"]{
+    background: #0e1117;
+}
+
+div[data-baseweb="base-input"] > input {
+    color: #fffafa;
+}
+
+
+button[data-testid*="stNumberInput-Step"] {
+    border-color: #fffafa;
+    background-color: #0e1117;
+}
+
+
+button[data-testid*="stNumberInput-Step"] > svg {
+    color: #fffafa;
+    border-color: #fffafa;    
+}
+
+
+div[data-testid="stFormSubmitButton"] > button {
+    background-color: #0e1117;
+    color: #fffafa;    
+}
+
+div[data-testid="stMarkdownContainer"] {
+    color:  #fffafa;    
+}
+
+
+div[class="stHtml"] > sub {
+    color:  rgb(255, 250, 250);    
+}
+
 
 
 div.stTabs button {
@@ -52,20 +98,19 @@ section[data-testid="stSidebar"] {
 
 .plot-container {
     margin-top: 50px;
+
 }
 
-
-/* ---------- Audio ---------- */
-
-/* audio {
-    max-height: 20px;
-    margin-top: 10px;
-}
-
-audio::-webkit-media-controls-panel,
-audio::-webkit-media-controls-enclosure {
-    background-color: #616161;
+/* svg {
+    background: transparent !important;
 } */
+
+
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #0e1117;
+    background: #0e1117;
+    color: #0e1117;
+}
 
 div[data-testid="stVerticalBlock"] {
     gap: 0px;
@@ -73,8 +118,8 @@ div[data-testid="stVerticalBlock"] {
 
 
 
-h3 {
-    color: #756760;
+h1 {
+    color: #fffafa;
     margin-bottom: 1rem;
 }
 
