@@ -62,8 +62,8 @@ with sidebar:
         
         submit = st.form_submit_button('Simulate')
 
-# if not submit:
-if False:
+if not submit:
+    # if False:
     st.title('Welcome to the Mortgage Simulator')
     st.text('Please open the side bar and submit your values to simulate...')
 
