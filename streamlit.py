@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import re
 
 from frontend.plotsHelpers import plotters
 from dataFetcher import dataFetcher
@@ -142,10 +143,15 @@ else:
                     )
 
         results_data = scenarios_results['scenario3']['compiled_data'].sort_values(by = ['cost_function', 'months_to_wait', 'mortgage_years'], ascending = True)
+        results_data.columns = [re.sub('_', '<br>', i) for i in results_data.columns]
 
         table_plot.append(plots.plot_table(results_data))
 
 
+    def table_footer():
+        return st.html('''<sub>*** months_to_wait: Months until entering into mortgage<br>&emsp;cost_function: Total costs that sums rent paid until before entering a mortgage, the interest on the mortgage and the 
+                penalization of house appreciation against today's value as a cost of opportunity<br> 
+                &emsp;payments: payment installments for the mortgage<br>&emsp;at_n: point in time when that scenarion enterred mortgage</sub>''')
 
 
 
@@ -156,13 +162,13 @@ else:
 
             # Print the results
         tab1.text(f"Optimal solution: Months to save until buying: {int(opt_result[0].x[0])}, Mortgage Years: {int(opt_result[0].x[1])}")
-        tab1.text(f"Optimal Total cost: Rents to save the needed money + Mortgage Interest: {opt_result[0].fun}")  
+        tab1.text(f"""Optimal Total cost: Rents to save the needed money + Mortgage Interest 
+                         + House Appreciation Oportunity cost: {opt_result[0].fun}""")  
 
         st.plotly_chart(table_plot[0], use_container_width=True, key = 'la_tablacsa') 
 
-
-        st.html('''<sub>*** months_to_wait: Months until entering into mortgage, cost_function: Total costs that sums rent paid until before entering a mortgage plus the interest on the mortgage, 
-                payments: payment installments for the mortgage, at_n: point in time when that scenarion enterred mortgage</sub>''')
+        table_footer()
+        
 
         r1_t1, r1_t2 = tab1.columns((1,1))       
 
@@ -185,14 +191,11 @@ else:
             tab2.html(f'''<h2>With Installment at {form_values['INSTALLMENT_THRESH'] + 500 * i}</h2>''')
 
             tab2.text(f"Optimal solution: Months to save until buying: {int(opt_result[i].x[0])}, Mortgage Years: {int(opt_result[i].x[1])}")
-            tab2.text(f"Optimal Total cost: Rents to save the needed money + Mortgage Interest: {opt_result[i].fun}")  
+            tab1.html(f"<p>Optimal Total cost: Rents to save the needed money + Mortgage Interest <br>&emsp; + House Appreciation Oportunity cost: {opt_result[0].fun}</p>")  
 
             st.plotly_chart(table_plot[i], use_container_width=True) 
 
-
-            st.html('''<sub>*** months_to_wait: Months until entering into mortgage, cost_function: Total costs that sums rent paid until before entering a mortgage plus the interest on the mortgage, 
-                    payments: payment installments for the mortgage, at_n: point in time when that scenarion enterred mortgage</sub>''')
-
+            table_footer()
 
             r2_t1, r2_t2 = tab2.columns((1,1))    
 

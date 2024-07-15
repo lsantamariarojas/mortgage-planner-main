@@ -106,6 +106,8 @@ class financialEstimator(Simulator, financialFunctions):
                                                     payment = self.rent_price
                                                     )
         
+        house_appreciation_cost = future_house_val - self.house_price
+        
 
         monthly_payments = financialFunctions.payments(
                                                 principal = future_house_val - future_saved_money, 
@@ -121,7 +123,7 @@ class financialEstimator(Simulator, financialFunctions):
 
         # print('house val: ', future_house_val, ', saved mon: ', future_saved_money, ', tot int: ', mortgage_interest, ', tot_rent: ', total_rent_paid, ', paym: ', monthly_payments)
         
-        return mortgage_interest + total_rent_paid
+        return mortgage_interest + total_rent_paid + house_appreciation_cost
 
 
     def cost_grid(self):
@@ -177,6 +179,8 @@ class financialEstimator(Simulator, financialFunctions):
 
         house_prices = np.apply_along_axis(financialEstimator.future_value, 0, total_periods, present_value = self.house_price, interest = self.house_price_growth)
         saved_amounts = np.apply_along_axis(financialEstimator.future_value, 0, total_periods, present_value = 0, interest = self.etf_growth, payment = self.savings_per_month)
+
+        house_appreciation_cost = house_prices - self.house_price
         # INITIAL_ETF_SAVINGS
 
 
@@ -211,6 +215,8 @@ class financialEstimator(Simulator, financialFunctions):
         house_prices_suboptimal = np.apply_along_axis(financialEstimator.future_value, 0, sub_total_periods, present_value = self.house_price, interest = self.house_price_growth)
         saved_amounts_suboptimal = np.apply_along_axis(financialEstimator.future_value, 0, sub_total_periods, present_value = 0, interest = self.etf_growth, payment = self.savings_per_month)
         rent_prices_suboptimal = np.apply_along_axis(financialEstimator.future_value, 0, sub_total_periods, payment = self.rent_price, interest = self.rent_price_growth)
+        house_appreciation_suboptimal = house_prices_suboptimal - self.house_price
+
 
         suboptimal_int = {}
         suboptimal_pay = {}
@@ -244,7 +250,7 @@ class financialEstimator(Simulator, financialFunctions):
                 suboptimal_cost.append((iter_months, np.append(
                                                     rent_prices_suboptimal[:iter_months + 1],
                                                     np.cumsum(np.append(
-                                                        (iter_payments - iter_principal)[0] + rent_prices_suboptimal[:iter_months + 1][-1],
+                                                        (iter_payments - iter_principal)[0] + rent_prices_suboptimal[:iter_months + 1][-1] + sum(house_appreciation_suboptimal[:iter_months + 1]),
                                                         (iter_payments - iter_principal)[1:]
                                                         )
                                                     )
@@ -296,14 +302,19 @@ class financialEstimator(Simulator, financialFunctions):
         all_pd['house_val_at_n'] = all_pd.apply(lambda x: house_prices_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
         all_pd['savings_at_n'] = all_pd.apply(lambda x: saved_amounts_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
         all_pd['rent_paid_at_n'] = all_pd.apply(lambda x: rent_prices_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
+        all_pd['house_appreciation_cost'] = all_pd.apply(lambda x: house_appreciation_suboptimal[int(x['months_to_wait'] + 1)], axis = 1)
 
-        all_pd = all_pd.loc[all_pd['interest'] != 0, ['months_to_wait', 'mortgage_years', 'cost_function', 'house_val_at_n', 'savings_at_n',
+        house_appreciation_suboptimal
+
+        all_pd = all_pd.loc[all_pd['interest'] != 0, ['months_to_wait', 'mortgage_years', 'cost_function', 'house_val_at_n', 'house_appreciation_cost', 'savings_at_n',
             'rent_paid_at_n', 'interest', 'payments']]
         
-        for i in ['cost_function', 'house_val_at_n', 'savings_at_n',
+        for i in ['house_appreciation_cost', 'cost_function', 'house_val_at_n', 'savings_at_n',
             'rent_paid_at_n', 'interest', 'payments']:
             all_pd[i] = all_pd[i].apply(lambda x: round(x, 2))
         
+        all_pd.columns = ['months_to_wait', 'mortgage_years', 'cost_function', 'house_value_at_step n', 'house_appreciation_cost', 'savings_at_step n',
+            'rent_paid_at_step n', 'interest', 'payments']
 
         
         

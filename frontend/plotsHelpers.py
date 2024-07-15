@@ -318,6 +318,7 @@ class plotters:
                 'y': -0.28,
                 'x': 0.05
                 },
+            # yaxis = {'zeroline' : False},
             # xaxis_title_standoff=25,  # Adjust standoff for X axis titles
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
@@ -351,7 +352,7 @@ class plotters:
             values=[f'<b>{i}</b>' for i in data.columns],
             line_color='darkslategray',
             fill_color=headerColor,
-            align=['left','center'],
+            align='center',
             font=dict(color='white', size=12)
         ),
         cells=dict(
