@@ -25,12 +25,12 @@ st.set_page_config(
 )
 
 # @st.cache_resource
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# def local_css(file_name):
+#     with open(file_name) as f:
+#         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-local_css("./frontend/style.css")
+# local_css("./frontend/style.css")
 
 
 sidebar = st.sidebar.markdown("**First select the data range you want to analyze:** 👇")
@@ -141,7 +141,7 @@ else:
                             )
                     )
 
-        results_data = scenarios_results['scenario3']['compiled_data'].sort_values(by = 'cost_function', ascending = True)
+        results_data = scenarios_results['scenario3']['compiled_data'].sort_values(by = ['cost_function', 'months_to_wait', 'mortgage_years'], ascending = True)
 
         table_plot.append(plots.plot_table(results_data))
 
