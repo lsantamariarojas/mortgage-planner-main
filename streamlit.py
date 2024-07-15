@@ -207,4 +207,4 @@ else:
 
 
 
-
+    st.html('''<sub>Disclaimer: The calculator doesn't take into account taxes of any type (capital gains or property), insurance costs or any other cost no refer to in the dashboard</sub>''')
