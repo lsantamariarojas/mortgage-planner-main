@@ -36,11 +36,11 @@ class plotters:
             xaxis=dict(title='Months to wait until buy'),
             height=400,  # Adjust height of the figure
             width=400,    # Adjust width of the figure
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            title_font_color="rgba(255, 255, 255, 100)",
-            legend_title_font_color="rgba(255, 255, 255, 100)",
-            font_color="rgba(255,255,255,100)"
+            # paper_bgcolor='rgba(0,0,0,0)',
+            # plot_bgcolor='rgba(0,0,0,0)',
+            # title_font_color="rgba(255, 255, 255, 100)",
+            # legend_title_font_color="rgba(255, 255, 255, 100)",
+            # font_color="rgba(255,255,255,100)"
             
         )
 
@@ -72,11 +72,11 @@ class plotters:
             ),
             width = 400,
             height = 400,
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            title_font_color="rgba(255, 255, 255, 100)",
-            legend_title_font_color="rgba(255, 255, 255, 100)",
-            font_color="rgba(255,255,255,100)"
+            # paper_bgcolor='rgba(0,0,0,0)',
+            # plot_bgcolor='rgba(0,0,0,0)',
+            # title_font_color="rgba(255, 255, 255, 100)",
+            # legend_title_font_color="rgba(255, 255, 255, 100)",
+            # font_color="rgba(255,255,255,100)"
             
         )
 
@@ -138,7 +138,7 @@ class plotters:
             legend = {
                 'orientation': "h",
                 'x': 0.1,
-                'y': -0.45,                
+                'y': -1.2,                
                 },
             title_x=0,    # Set title position to the middle horizontally
             title_y=0.95,   # Set title position closer to the top vertically
@@ -147,11 +147,11 @@ class plotters:
             hoversubplots = 'axis',
             hovermode = 'x unified',
             # hoverdistance = -1,
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            title_font_color="rgba(255, 255, 255, 100)",
-            legend_title_font_color="rgba(255, 255, 255, 100)",
-            font_color="rgba(255,255,255,100)"
+            # paper_bgcolor='rgba(0,0,0,0)',
+            # plot_bgcolor='rgba(0,0,0,0)',
+            # title_font_color="rgba(255, 255, 255, 100)",
+            # legend_title_font_color="rgba(255, 255, 255, 100)",
+            # font_color="rgba(255,255,255,100)"
             
         )
 
@@ -169,15 +169,17 @@ class plotters:
         padding_nan = np.repeat(np.nan, len(total_periods) - len(interest_payments))
 
         # Create figure with a single trace for each segment
-        fig1 = go.Figure()
+        fig1 = make_subplots(specs=[[{"secondary_y": True}]])
         fig2 = go.Figure()
 
         # Add trace for Line Chart 1: Sin(x) in Frame 1
         fig1.add_trace(go.Scatter(x=total_periods, y=rent_prices, name='Rent prices',
-                                yaxis='y1', showlegend = True, stackgroup = 'one'))
+                                     yaxis='y1', showlegend = True, stackgroup = 'one'),
+                                secondary_y=False,)
 
         fig1.add_trace(go.Scatter(x=total_periods, y=np.append(padding_nan, interest_payments), name='Interest payment',
-                                yaxis='y1', showlegend = True, stackgroup = 'two'))
+                                yaxis='y2', showlegend = True, stackgroup = 'two'),
+                            secondary_y=True,)
         
 
 
@@ -203,25 +205,27 @@ class plotters:
             title_x=0,    # Set title position to the middle horizontally
             title_y=0.95,   # Set title position closer to the top vertically
             xaxis_title='Months After Opt. Scenario Finishes',
-            yaxis_title='Assets Value',
             legend = {
                 'orientation': "h",
                 'x':0.15,
-                'y': -0.22,                 
+                'y': -0.35,                 
                 },
             # xaxis_title_standoff=25,  # Adjust standoff for X axis titles
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
             hovermode = 'x unified',
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            title_font_color="rgba(255, 255, 255, 100)",
-            legend_title_font_color="rgba(255, 255, 255, 100)",
-            font_color="rgba(255,255,255,100)"
+            # paper_bgcolor='rgba(0,0,0,0)',
+            # plot_bgcolor='rgba(0,0,0,0)',
+            # title_font_color="rgba(255, 255, 255, 100)",
+            # legend_title_font_color="rgba(255, 255, 255, 100)",
+            # font_color="rgba(255,255,255,100)"
             
 
             # hoverdistance = -1,
         )
+
+        fig1.update_yaxes(title_text="<b>Rent</b> cost", secondary_y=False)
+        fig1.update_yaxes(title_text="<b>Interest</b> cost", secondary_y=True)
 
 
 
@@ -256,24 +260,26 @@ class plotters:
             title_x=0,    # Set title position to the middle horizontally
             title_y=0.95,   # Set title position closer to the top vertically
             xaxis_title='Months',
-            yaxis_title='Value',
+            yaxis_title='Assets Value',
             legend = {
                 'orientation': "h",
                 'x':0.2,
-                'y': -0.22,                 
+                'y': -0.35,                 
                 },
             # xaxis_title_standoff=25,  # Adjust standoff for X axis titles
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles
             hoversubplots = 'axis',
             hovermode = 'x unified',
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            title_font_color="rgba(255, 255, 255, 100)",
-            legend_title_font_color="rgba(255, 255, 255, 100)",
-            font_color="rgba(255,255,255,100)"
+            # paper_bgcolor='rgba(0,0,0,0)',
+            # plot_bgcolor='rgba(0,0,0,0)',
+            # title_font_color="rgba(255, 255, 255, 100)",
+            # legend_title_font_color="rgba(255, 255, 255, 100)",
+            # font_color="rgba(255,255,255,100)"
             
             # hoverdistance = -1,
         )
+
+        
 
         if show:
             fig1.show()
@@ -292,10 +298,10 @@ class plotters:
         fig = go.Figure()
 
         # Add trace for the first segment (before color change point)
-        fig.add_trace(go.Scatter(x=future_steps, y=savings_scenario_arr, name='ETF Savings scenario', line=dict(color='blue'), stackgroup = 'one'))
+        fig.add_trace(go.Scatter(x=future_steps, y=savings_scenario_arr, name='ETF Savings scenario - rents', line=dict(color='blue'), stackgroup = 'one'))
 
         # Add trace for the second segment (after color change point)
-        fig.add_trace(go.Scatter(x=future_steps, y=house_scenario_arr, name='House + ETF savings scenario.', line=dict(color='red'), stackgroup = 'two'))
+        fig.add_trace(go.Scatter(x=future_steps, y=house_scenario_arr, name='House - costs + ETF savings scenario.', line=dict(color='red'), stackgroup = 'two'))
 
 
         # Update layout
@@ -304,13 +310,13 @@ class plotters:
             title_x=0,    # Set title position to the middle horizontally
             title_y=0.95,   # Set title position closer to the top vertically
             xaxis_title='Months After Opt. Scenario Finishes',
-            yaxis_title='Assets Value',
+            yaxis_title='Net Assets Value',
             height=400,  # Adjust height of the figure
             width=400,   # Adjust width of the figure 
             legend = {
                 'orientation': "h",
                 'y': -0.28,
-                'x': 0.1
+                'x': 0.05
                 },
             # xaxis_title_standoff=25,  # Adjust standoff for X axis titles
             # yaxis_title_standoff=25,  # Adjust standoff for Y axis titles

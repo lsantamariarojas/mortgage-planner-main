@@ -119,7 +119,7 @@ class financialEstimator(Simulator, financialFunctions):
         if future_saved_money > future_house_val:
             return np.inf
 
-        print('house val: ', future_house_val, ', saved mon: ', future_saved_money, ', tot int: ', mortgage_interest, ', tot_rent: ', total_rent_paid, ', paym: ', monthly_payments)
+        # print('house val: ', future_house_val, ', saved mon: ', future_saved_money, ', tot int: ', mortgage_interest, ', tot_rent: ', total_rent_paid, ', paym: ', monthly_payments)
         
         return mortgage_interest + total_rent_paid
 
@@ -299,6 +299,10 @@ class financialEstimator(Simulator, financialFunctions):
 
         all_pd = all_pd.loc[all_pd['interest'] != 0, ['months_to_wait', 'mortgage_years', 'cost_function', 'house_val_at_n', 'savings_at_n',
             'rent_paid_at_n', 'interest', 'payments']]
+        
+        for i in ['cost_function', 'house_val_at_n', 'savings_at_n',
+            'rent_paid_at_n', 'interest', 'payments']:
+            all_pd[i] = all_pd[i].apply(lambda x: round(x, 2))
         
 
         
