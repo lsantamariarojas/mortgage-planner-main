@@ -66,9 +66,11 @@ class dataFetcher(financialEstimator):
         # sub_optimal_grid.iloc[-1 ,:]
         to_append = sub_optimal_grid.tail(20).head(5)
 
+        sample = min([5, sub_optimal_grid.shape[0]])
+
         all_sub_optimal = pd.concat([
                         sub_opt_steps[sub_opt_steps['cost_function'] != np.inf].tail(5).head(4),
-                        sub_optimal_grid.sample(5)
+                        sub_optimal_grid.sample(sample)
                         ], axis = 0)
 
 
