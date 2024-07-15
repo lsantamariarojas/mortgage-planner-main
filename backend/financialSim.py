@@ -170,8 +170,8 @@ class financialEstimator(Simulator, financialFunctions):
     
 
     def calculate_scenarios(self, opt_results_obj, sub_optimal_df):
-        months = int(opt_results_obj.x[0])
-        mortgage_years = int(opt_results_obj.x[1])
+        months = int(np.round(opt_results_obj.x[0]))
+        mortgage_years = int(np.round(opt_results_obj.x[1]))
 
         total_periods = np.arange(0, months + (mortgage_years + 30) * 12, dtype = int)
         mortgage_periods = np.arange(0, mortgage_years * 12, dtype = int)
@@ -199,7 +199,7 @@ class financialEstimator(Simulator, financialFunctions):
 
         interest_payments = payments - principal_payments
 
-        optimal_cumcost = np.append(rent_prices[:months], np.cumsum(np.append(interest_payments[0] + rent_prices[:months][-1], interest_payments[1:])))
+        optimal_cumcost = np.append(rent_prices[:months] + house_appreciation_cost[:months], np.cumsum(np.append(interest_payments[0] + rent_prices[:months][-1] + house_appreciation_cost[months], interest_payments[1:])))
 
         '''
         **************************************
@@ -222,8 +222,8 @@ class financialEstimator(Simulator, financialFunctions):
         suboptimal_pay = {}
         suboptimal_cost = []
         for _, row in sub_optimal_df.iterrows():
-            iter_months = int(row['months_to_wait']) + 1
-            iter_mortgage = int(row['mortgage_years'])
+            iter_months = int(np.round(row['months_to_wait'])) + 1
+            iter_mortgage = int(np.round(row['mortgage_years']))
 
             if self.objective_function([iter_months, iter_mortgage]) != np.inf:
                 # print([iter_months, iter_mortgage], self.objective_function([iter_months, iter_mortgage]))
@@ -248,9 +248,9 @@ class financialEstimator(Simulator, financialFunctions):
                 #       , ', tot int: ', sum(iter_payments - iter_principal), ', tot_rent: ', rent_prices_suboptimal[:iter_months + 1][-1],
                 #        ', paym: ', iter_payments,'\n\n')
                 suboptimal_cost.append((iter_months, np.append(
-                                                    rent_prices_suboptimal[:iter_months + 1],
+                                                    rent_prices_suboptimal[:iter_months + 1] + house_appreciation_suboptimal[:iter_months + 1],
                                                     np.cumsum(np.append(
-                                                        (iter_payments - iter_principal)[0] + rent_prices_suboptimal[:iter_months + 1][-1] + sum(house_appreciation_suboptimal[:iter_months + 1]),
+                                                        (iter_payments - iter_principal)[0] + rent_prices_suboptimal[:iter_months + 1][-1] + house_appreciation_suboptimal[:iter_months + 1][-1],
                                                         (iter_payments - iter_principal)[1:]
                                                         )
                                                     )
@@ -269,7 +269,9 @@ class financialEstimator(Simulator, financialFunctions):
 
         savings_scenario = saved_amounts[complete_steps:] - rent_prices[complete_steps:]
 
-        final_house_val = house_prices[complete_steps] - optimal_cumcost[-1]
+        optimal_realized_cumcost = np.append(rent_prices[:months], np.cumsum(np.append(interest_payments[0] + rent_prices[:months][-1], interest_payments[1:])))
+
+        final_house_val = house_prices[complete_steps] - optimal_realized_cumcost[-1]
         house_scenario = np.append(final_house_val, saved_amounts[:30 * 12] + final_house_val)
 
 

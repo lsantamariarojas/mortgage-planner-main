@@ -191,7 +191,8 @@ else:
             tab2.html(f'''<h2>With Installment at {form_values['INSTALLMENT_THRESH'] + 500 * i}</h2>''')
 
             tab2.text(f"Optimal solution: Months to save until buying: {int(opt_result[i].x[0])}, Mortgage Years: {int(opt_result[i].x[1])}")
-            tab1.html(f"<p>Optimal Total cost: Rents to save the needed money + Mortgage Interest <br>&emsp; + House Appreciation Oportunity cost: {opt_result[0].fun}</p>")  
+            tab2.text(f"""Optimal Total cost: Rents to save the needed money + Mortgage Interest 
+                         + House Appreciation Oportunity cost: {opt_result[i].fun}""")  
 
             st.plotly_chart(table_plot[i], use_container_width=True) 
 
