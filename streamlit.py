@@ -161,7 +161,7 @@ else:
     with tab1:
 
             # Print the results
-        tab1.text(f"Optimal solution: Months to save until buying: {int(opt_result[0].x[0])}, Mortgage Years: {int(opt_result[0].x[1])}")
+        tab1.text(f"Optimal solution: Months to save until buying: {int(np.ceil(opt_result[0].x[0]))}, Mortgage Years: {int(np.ceil(opt_result[0].x[1]))}")
         tab1.text(f"""Optimal Total cost: Rents to save the needed money + Mortgage Interest 
                          + House Appreciation Oportunity cost: {opt_result[0].fun}""")  
 
