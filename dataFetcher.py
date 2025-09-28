@@ -49,12 +49,16 @@ class dataFetcher(financialEstimator):
 
     def get_optimal_result(self):
         self.__opt_result, self.__opt_verbose = self.run_simulation()
+        print('Optimal result found: ', self.__opt_result)
+        # Print the results
+        print("Optimal solution:", self.__opt_result.x)
+        print("Optimal value of the objective function:", self.__opt_result.fun)
         return self.opt_result, self.opt_verbose
 
 
     def get_result_dataframe(self):
-        if type(self.__opt_result) == type(None):
-            self.get_optimal_result()
+        # if type(self.__opt_result) == type(None):
+        opt_result, opt_verbose = self.get_optimal_result()
 
         sub_opt_steps = pd.DataFrame(self.__opt_verbose.decreasing_list_calls_inp, columns = ['months_to_wait', 'mortgage_years'])
         sub_opt_steps['cost_function'] = self.__opt_verbose.decreasing_list_calls_res
@@ -62,9 +66,9 @@ class dataFetcher(financialEstimator):
         _ = self.cost_grid()
 
         sub_optimal_grid = pd.DataFrame(self.reducing_steps, columns = ['steps', 'months_to_wait', 'mortgage_years', 'cost_function'])
-        sub_optimal_grid.head(10)
+        # sub_optimal_grid.head(10)
         # sub_optimal_grid.iloc[-1 ,:]
-        to_append = sub_optimal_grid.tail(20).head(5)
+        # to_append = sub_optimal_grid.tail(20).head(5)
 
         sample = min([5, sub_optimal_grid.shape[0]])
 
@@ -72,7 +76,14 @@ class dataFetcher(financialEstimator):
                         sub_opt_steps[sub_opt_steps['cost_function'] != np.inf].tail(5).head(4),
                         sub_optimal_grid.sample(sample)
                         ], axis = 0)
+        # all_sub_optimal = pd.concat([
+        #         sub_opt_steps[sub_opt_steps['cost_function'] != np.inf].tail(5).head(4),
+        #         pd.DataFrame([[opt_result.x[0], opt_result.x[1], opt_result.fun]], columns = ['months_to_wait', 'mortgage_years', 'cost_function'])
+        #         ], axis = 0)
+        
+        # all_sub_optimal = sub_opt_steps[sub_opt_steps['cost_function'] != np.inf].tail(5).head(4).copy()
 
+        all_sub_optimal.sort_values(by = 'cost_function', inplace = True)
 
         all_sub_optimal.reset_index(drop = True, inplace = True)
 
